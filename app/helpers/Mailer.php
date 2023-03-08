@@ -18,22 +18,24 @@ class Mailer
                 )
             );
             $mail->CharSet = 'UTF-8';
-            // $mail->SMTPDebug  = 1;
+            //$mail->SMTPDebug  = 3;
             $mail->IsSMTP(); // SMTP-n keresztüli küldés
-            $mail->SMTPAuth = false;
+            $mail->SMTPAuth = true;
 
-            $mail->Host = "owa.rufusz.hu";
+            $mail->Host = "smtp.gmail.com";
+            $mail->Username = "developedbybarley@gmail.com";
+            $mail->Password = "llgiygoshngwhlzi";
 
-            $mail->setFrom("regisztracio@zold22.hu", "Budafok-Tétényért Városfejlesztő Kft.");
             $mail->addAddress($address, $address);     //Add a recipient
-            $mail->addReplyTo("regisztracio@zold22.hu", "Budafok-Tétényért Városfejlesztő Kft.");
-
-            //Content
+            $mail->addReplyTo("developedbybarley@gmail.com", "developedbybarley@gmail.com");
+            $mail->setFrom("developedbybarley@gmail.com", "Travel2.hu");
+            $mail->SMTPSecure = 'tls';            //Content
             $mail->isHTML(true); //Set email format to HTML
 
             $mail->Subject = 'Regisztráció megerősítése!';
             $mail->Body = $body;
             $mail->AltBody = strip_tags($body);
+            $mail->Port = 587;
 
             $mail->Send();
         } catch (Exception $e) {

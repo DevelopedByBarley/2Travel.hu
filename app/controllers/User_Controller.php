@@ -29,5 +29,15 @@
         public function logoutUser() {
             $this->userModel->logoutUser();
         }
+
+        public function userAuthenticator() {
+            echo $this->renderer->render("Layout.php", [
+                "content" => $this->renderer->render("pages/User_Authentication_Form.php", [])
+            ]);
+        }
+
+        public function authenticateUser() {
+            $this->userModel->authenticate($_POST);
+        }
     }
 ?>
