@@ -83,29 +83,29 @@ class UserModel
         $authenticationNumber = rand(0, 9999);
         session_start();
         $_SESSION["authenticationCode"] = $authenticationNumber;
-        $_SESSION["userId"] = $user["id"];
-        $body = "
+        $emailBody = "
             <div>
-                <h1>Megerősitő kód</h1>
-                <p>$authenticationNumber</p>
+                <h3>Megerősitő kód</h3>
+                <h1>$authenticationNumber</h1>
             </div>
         ";
 
-        $isSuccess = $this->mailer->send("szaniszlobalint8@gmail.com", $body);
+        $this->mailer->send($body["email"], $emailBody);
 
-        header("Location: /user/authenticator");
+        header("Location: /user/authenticator?id=" . $user["id"]);
     }
 
     public function authenticate($body)
     {
         session_start();
         $authenticationCode = $_SESSION["authenticationCode"];
-        var_dump($_GET["id"]);
+        var_dump($body["code"]);
+        var_dump($authenticationCode);
         if ((int)$body["code"] !== (int)$authenticationCode) {
-            unset($_SESSION["userId"]);
-            unset($_SESSION["authenticationCode"]);
             header('Location: /?fail=true');
+            return;
         }
+        $_SESSION["userId"] = $_GET["id"];
         header("Location: /");
     }
 

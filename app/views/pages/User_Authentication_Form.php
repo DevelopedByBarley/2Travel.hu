@@ -1,4 +1,4 @@
-<form id="login-form" action="/user/authenticate  " method="POST">
+<form id="login-form" action="/user/authenticate?id=<?= $params["userId"] ?>" method="POST">
 
     <!-- Password input -->
     <div class="form-outline mb-4">

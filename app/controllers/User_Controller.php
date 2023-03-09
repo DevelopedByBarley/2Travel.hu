@@ -31,8 +31,11 @@
         }
 
         public function userAuthenticator() {
+
             echo $this->renderer->render("Layout.php", [
-                "content" => $this->renderer->render("pages/User_Authentication_Form.php", [])
+                "content" => $this->renderer->render("pages/User_Authentication_Form.php", [
+                    "userId" => $_GET["id"] ?? null
+                ])
             ]);
         }
 

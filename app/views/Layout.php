@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/public/bootstrap/css/bootstrap.css" />
 
     <script src="/public/bootstrap/js/bootstrap.js"></script>
-    <title>Layout</title>
+    <title>2Travel.hu</title>
 </head>
 
 <body>
