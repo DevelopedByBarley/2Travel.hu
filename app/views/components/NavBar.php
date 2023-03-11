@@ -37,9 +37,9 @@
                             </svg>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Profil</a></li>
-                            <li><a class="dropdown-item" href="#">Foglalások</a></li>
-                            <li><a class="dropdown-item" href="#">Lakásaim</a></li>
+                            <li><a class="dropdown-item" href="/user/profile">Profil</a></li>
+                            <li><a class="dropdown-item" href="/user/reservations">Foglalások</a></li>
+                            <li><a class="dropdown-item" href="/user/homes">Lakásaim</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

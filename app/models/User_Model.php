@@ -15,7 +15,8 @@ class UserModel
     public function registerUser($body)
     {
         $password =  password_hash($body["password"], PASSWORD_DEFAULT);
-        $userImage = isset($body['userImage']) ?  $body['userImage'] : "https://via.placeholder.com/500x500.png?text=Placeholder+Image";
+        $userImage = ($body['userImage']  !== '') ?  $body['userImage'] : "https://i.pravatar.cc/300";
+        $createdAt =  time();
 
         $stmt = $this->pdo->prepare("INSERT INTO `users` VALUES
              (NULL, 
@@ -45,7 +46,7 @@ class UserModel
         $stmt->bindParam(':address', $body['address']);
         $stmt->bindParam(':phoneNumber', $body['phoneNumber']);
         $stmt->bindParam(':sex', $body['sex']);
-        $stmt->bindParam(':createdAt', $body['createdAt']);
+        $stmt->bindParam(':createdAt', $createdAt);
 
         $stmt->execute();
 
@@ -138,5 +139,21 @@ class UserModel
         };
         header("Location: /");
         exit;
+    }
+
+    public function getProfile($userId)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM `users` WHERE id = :userId");
+        $stmt->bindParam(':userId', $userId);
+        $stmt->execute();
+
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $user;
+    }
+
+
+    public function getHomes() {
+
     }
 }

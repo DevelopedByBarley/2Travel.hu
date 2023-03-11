@@ -5,6 +5,9 @@ require './app/controllers/User_Controller.php';
 $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
     $r->addRoute('GET', '/', [HomeController::class, 'home']);
     $r->addRoute('GET', '/user', [UserController::class, 'user']);
+    $r->addRoute('GET', '/user/profile', [UserController::class, 'profile']);
+    $r->addRoute('GET', '/user/homes', [UserController::class, 'homes']);
+    $r->addRoute('GET', '/user/reservations', [UserController::class, 'reservations']);
     $r->addRoute('GET', '/user/logout', [UserController::class, 'logoutUser']);
     $r->addRoute('GET', '/user/authenticator', [UserController::class, 'userAuthenticator']);
 

@@ -23,12 +23,12 @@ class Mailer
             $mail->SMTPAuth = true;
 
             $mail->Host = "smtp.gmail.com";
-            $mail->Username = "developedbybarley@gmail.com";
-            $mail->Password = "llgiygoshngwhlzi";
+            $mail->Username = "BarleyMailer@gmail.com";
+            $mail->Password = "pdfnnhcofadkgglw";
 
             $mail->addAddress($address, $address);     //Add a recipient
-            $mail->addReplyTo("developedbybarley@gmail.com", "developedbybarley@gmail.com");
-            $mail->setFrom("developedbybarley@gmail.com", "Travel2.hu");
+            $mail->addReplyTo("BarleyMailer@gmail.com", "BarleyMailer@gmail.com");
+            $mail->setFrom("BarleyMailer@gmail.com", "Travel2.hu");
             $mail->SMTPSecure = 'tls';            //Content
             $mail->isHTML(true); //Set email format to HTML
 
