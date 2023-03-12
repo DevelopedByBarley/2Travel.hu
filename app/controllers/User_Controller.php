@@ -14,8 +14,19 @@ class UserController
 
     public function user()
     {
+
+        session_start();
+        $errors = isset($_SESSION["errors"]) ?  json_decode(base64_decode($_SESSION["errors"]), true) : "";
+        $values = isset($_SESSION["values"]) ?  json_decode(base64_decode($_SESSION["values"]), true) : "";
+        $validator = new Validator();
+        $errorMessages = $validator->getErrorMessages($validator->userSchema(), $errors);
+
         echo $this->renderer->render("Layout.php", [
-            "content" => $this->renderer->render("pages/user/User_Subscription_Form.php", [])
+            "content" => $this->renderer->render("pages/user/User_Subscription_Form.php", [
+                "isRegistered" => $_GET["isRegistered"] ?? null,
+                "errorMessages" => $errorMessages,
+                "values" => $values
+            ])
         ]);
     }
 
@@ -54,10 +65,13 @@ class UserController
     {
         $this->userModel->checkUserIsLoggedInOrRedirect();
         $user = $this->userModel->getProfile($_SESSION["userId"]);
+        $userImage = $this->userModel->getUserImage($user["id"]);
+
 
         echo $this->renderer->render("Layout.php", [
             "content" => $this->renderer->render("pages/user/User_Profile.php", [
-                "user" => $user
+                "user" => $user,
+                "userImage" => $userImage["userImageName"]
             ]),
             "isLoggedIn" => $_SESSION["userId"] ?? null
         ]);

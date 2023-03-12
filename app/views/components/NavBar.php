@@ -26,7 +26,7 @@
             <ul class="navbar-nav mb-2 mb-lg-0" style="margin-right: 4rem;">
                 <?php if (!isset($params["isLoggedIn"])) : ?>
                     <a href="/user" class="btn btn-outline-dark">
-                        Bejelentkezés
+                        Regisztráció
                     </a>
                 <?php else : ?>
                     <li class="nav-item dropdown">

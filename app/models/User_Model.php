@@ -1,22 +1,45 @@
 <?php
 
+require_once 'app/helpers/Validate.php';
+require_once 'app/helpers/FileSaver.php';
+
 class UserModel
 {
     private $pdo;
     private $mailer;
+    private $fileSaver;
 
     public function __construct()
     {
         $db = new Database();
         $this->pdo = $db->getConnect();
         $this->mailer = new Mailer();
+        $this->fileSaver = new FileSaver();
     }
 
     public function registerUser($body)
     {
+        $validator = new Validator();
+        $errors = $validator->validate($validator->userSchema(), $body);
+
+        
+        foreach($errors as $error ) {
+     
+            if(!empty($error)) {
+                session_start();
+                $_SESSION["errors"] = base64_encode(json_encode($errors));
+                $_SESSION["values"] = base64_encode(json_encode($body));
+                header("Location: /user");
+                return;
+            }
+        }
+
+      
+
         $password =  password_hash($body["password"], PASSWORD_DEFAULT);
-        $userImage = ($body['userImage']  !== '') ?  $body['userImage'] : "https://i.pravatar.cc/300";
         $createdAt =  time();
+
+
 
         $stmt = $this->pdo->prepare("INSERT INTO `users` VALUES
              (NULL, 
@@ -24,39 +47,29 @@ class UserModel
              :lastName, 
              :email, 
              :password, 
-             :userImage, 
              :age, 
              :nationality, 
              :country,
-             :city, 
-             :address, 
-             :phoneNumber, 
-             :sex, 
              :createdAt);");
 
         $stmt->bindParam(':firstName', $body['firstName']);
         $stmt->bindParam(':lastName', $body['lastName']);
         $stmt->bindParam(':email', $body['email']);
         $stmt->bindParam(':password', $password);
-        $stmt->bindParam(':userImage', $userImage);
         $stmt->bindParam(':age', $body['age']);
         $stmt->bindParam(':nationality', $body['nationality']);
         $stmt->bindParam(':country', $body['country']);
-        $stmt->bindParam(':city', $body['city']);
-        $stmt->bindParam(':address', $body['address']);
-        $stmt->bindParam(':phoneNumber', $body['phoneNumber']);
-        $stmt->bindParam(':sex', $body['sex']);
         $stmt->bindParam(':createdAt', $createdAt);
 
         $stmt->execute();
 
-        var_dump("Everything was fine");
+        $userId = $this->pdo->lastInsertId();
+        $userImage = $this->fileSaver->saver($_FILES["files"], "userImages", null);
+        $this->saveUserImage($userImage, $userId);
+
+
+        header("Location: /user?isRegistered=1");
     }
-
-
-
-
-
 
     public function loginUser($body)
     {
@@ -152,8 +165,22 @@ class UserModel
         return $user;
     }
 
+    public function getUserImage($userId)
+    {
 
-    public function getHomes() {
+        $stmt = $this->pdo->prepare("SELECT * FROM `userimages` WHERE userRefId = :userId");
+        $stmt->bindParam(':userId', $userId);
+        $stmt->execute();
+        $userImage = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $userImage;
+    }
 
+
+    private function saveUserImage($userImage, $userRefId)
+    {
+        $stmt = $this->pdo->prepare("INSERT INTO `userimages` (`userImageId`, `userImageName`, `userRefId`) VALUES (NULL, :userImageName, :userRefId);");
+        $stmt->bindParam(':userImageName', $userImage);
+        $stmt->bindParam(':userRefId', $userRefId);
+        $stmt->execute();
     }
 }
