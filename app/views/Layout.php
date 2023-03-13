@@ -21,6 +21,7 @@
         </div>
     </div>
     <?php include 'includes/Footer.php' ?>
+    <script src="/public/js/SearchBox.js"></script>
 </body>
 
 </html>

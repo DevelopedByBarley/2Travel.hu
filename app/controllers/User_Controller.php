@@ -21,13 +21,21 @@ class UserController
         $validator = new Validator();
         $errorMessages = $validator->getErrorMessages($validator->userSchema(), $errors);
 
-        echo $this->renderer->render("Layout.php", [
-            "content" => $this->renderer->render("pages/user/User_Subscription_Form.php", [
-                "isRegistered" => $_GET["isRegistered"] ?? null,
-                "errorMessages" => $errorMessages,
-                "values" => $values
-            ])
-        ]);
+
+        if (!isset($_COOKIE["userId"])) {
+            echo $this->renderer->render("Layout.php", [
+                "content" => $this->renderer->render("pages/user/User_Subscription_Form.php", [
+                    "isRegistered" => $_GET["isRegistered"] ?? null,
+                    "errorMessages" => $errorMessages,
+                    "values" => $values
+                ])
+            ]);
+            return;
+        }
+
+        $_SESSION["userId"] = $_COOKIE["userId"];
+        header("Location: /");
+
     }
 
 
@@ -73,26 +81,6 @@ class UserController
                 "user" => $user,
                 "userImage" => $userImage["userImageName"]
             ]),
-            "isLoggedIn" => $_SESSION["userId"] ?? null
-        ]);
-    }
-
-    public function homes()
-    {
-        $this->userModel->checkUserIsLoggedInOrRedirect();
-
-        echo $this->renderer->render("Layout.php", [
-            "content" => $this->renderer->render("pages/user/Homes.php", []),
-            "isLoggedIn" => $_SESSION["userId"] ?? null
-        ]);
-    }
-
-
-    public function reservations()
-    {
-        $this->userModel->checkUserIsLoggedInOrRedirect();
-        echo $this->renderer->render("Layout.php", [
-            "content" => $this->renderer->render("pages/user/Reservations.php", []),
             "isLoggedIn" => $_SESSION["userId"] ?? null
         ]);
     }

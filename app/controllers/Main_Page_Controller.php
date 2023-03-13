@@ -1,7 +1,6 @@
 <?php
-require './app/models/Home_Model.php';
 
-class HomeController
+class MainPage
 {
 
     private $renderer;
@@ -11,7 +10,7 @@ class HomeController
         $this->renderer = new Renderer();
     }
 
-    function home() {
+    function mainPage() {
 
         session_start();
         echo $this->renderer->render("Layout.php" , [

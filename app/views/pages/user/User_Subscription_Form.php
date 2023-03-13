@@ -12,7 +12,7 @@
                 <div class="col-xs-12 col-lg-4 mb-2">
                     <div class="form-outline">
                         <label class="form-label" for="form8Example3">Vezetkénév</label>
-                        <input type="text" id="form8Example3" class="form-control" placeholder="Vezetkénév" name="firstName" value="<?= $params["values"]["firstName"] ?? "" ?>" style="border: <?php echo ($params["values"]["firstName"]) ? '2px solid green' : '2px solid red'; ?>" />
+                        <input type="text" id="form8Example3" class="form-control" placeholder="Vezetkénév" name="firstName" value="<?= $params["values"]["firstName"] ?? "" ?>" style="border: <?php echo (!isset($params["errorMessages"]["firstName"])) ? '2px solid green' : '2px solid red'; ?>" />
 
                     </div>
                 </div>
@@ -20,37 +20,37 @@
                     <!-- Name input -->
                     <div class="form-outline">
                         <label class="form-label" for="form8Example4">Keresztnév</label>
-                        <input type="text" id="form8Example4" class="form-control" placeholder="Keresztnév" name="lastName" value="<?= $params["values"]["lastName"] ?? "" ?>" style="border: <?php echo ($params["values"]["lastName"]) ? '2px solid green' : '2px solid red'; ?>"/>
+                        <input type="text" id="form8Example4" class="form-control" placeholder="Keresztnév" name="lastName" value="<?= $params["values"]["lastName"] ?? "" ?>" style="border: <?php echo (!isset($params["errorMessages"]["lastName"])) ? '2px solid green' : '2px solid red'; ?>"/>
                     </div>
                 </div>
                 <div class="col-xs-12 col-lg-4 mb-2">
                     <div class="form-outline">
                         <label class="form-label" for="form8Example5">Kor</label>
-                        <input type="number" id="form8Example5" class="form-control" placeholder="Kor" name="age" value="<?= $params["values"]["age"] ?? "" ?>" style="border: <?php echo ($params["values"]["age"]) ? '2px solid green' : '2px solid red'; ?>"/>
+                        <input type="number" id="form8Example5" class="form-control" placeholder="Kor" name="age" value="<?= $params["values"]["age"] ?? "" ?>" style="border: <?php echo (!isset($params["errorMessages"]["age"])) ? '2px solid green' : '2px solid red'; ?>"/>
                     </div>
                 </div>
                 <div class=" col-xs-12 col-lg-6 mb-2">
                         <div class="form-outline">
                             <label class="form-label" for="form8Example5">E-mail</label>
-                            <input type="email" id="form8Example5" class="form-control" placeholder="E-mail" name="email" value="<?= $params["values"]["email"] ?? "" ?>" style="border: <?php echo ($params["values"]["email"]) ? '2px solid green' : '2px solid red'; ?>"/>
+                            <input type="email" id="form8Example5" class="form-control" placeholder="E-mail" name="email" value="<?= $params["values"]["email"] ?? "" ?>" style="border: <?php echo (!isset($params["errorMessages"]["email"])) ? '2px solid green' : '2px solid red'; ?>"/>
                         </div>
                     </div>
                     <div class="col-xs-12 col-lg-6 mb-2">
                         <div class="form-outline">
                             <label class="form-label" for="form8Example5">Jelszó</label>
-                            <input type="password" id="form8Example5" class="form-control" placeholder="Jelszó" name="password" value="<?= $params["values"]["password"] ?? "" ?>" style="border: <?php echo ($params["values"]["password"]) ? '2px solid green' : '2px solid red'; ?>"/>
+                            <input type="password" id="form8Example5" class="form-control" placeholder="Jelszó" name="password" value="<?= $params["values"]["password"] ?? "" ?>" style="border: <?php echo (!isset($params["errorMessages"]["password"])) ? '2px solid green' : '2px solid red'; ?>"/>
                         </div>
                     </div>
                     <div class="col-xs-12 mb-2">
                         <div class="form-outline">
                             <label class="form-label" for="form8Example5">Nemzetiség</label>
-                            <input type="text" id="form8Example5" class="form-control" placeholder="Nemzetiség" name="nationality" value="<?= $params["values"]["nationality"] ?? "" ?>" style="border: <?php echo ($params["values"]["nationality"]) ? '2px solid green' : '2px solid red'; ?>"/>
+                            <input type="text" id="form8Example5" class="form-control" placeholder="Nemzetiség" name="nationality" value="<?= $params["values"]["nationality"] ?? "" ?>" style="border: <?php echo (!isset($params["errorMessages"]["nationality"])) ? '2px solid green' : '2px solid red'; ?>"/>
                         </div>
                     </div>
                     <div class="col-xs-12 mb-2">
                         <div class="form-outline">
                             <label class="form-label" for="form8Example5">Ország</label>
-                            <input type="text" id="form8Example5" class="form-control" placeholder="Ország" name="country" value="<?= $params["values"]["country"] ?? "" ?>" style="border: <?php echo ($params["values"]["country"]) ? '2px solid green' : '2px solid red'; ?>"/>
+                            <input type="text" id="form8Example5" class="form-control" placeholder="Ország" name="country" value="<?= $params["values"]["country"] ?? "" ?>" style="border: <?php echo (!isset($params["errorMessages"]["country"])) ? '2px solid green' : '2px solid red'; ?>"/>
                         </div>
                     </div>
                     <div class="mt-3 mb-3">

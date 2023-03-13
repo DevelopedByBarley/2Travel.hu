@@ -18,6 +18,7 @@ class Validator
     $userSchema = [
       "firstName" => [$this->validators->required()],
       "lastName" => [$this->validators->required()],
+      "age" => [$this->validators->required()],
       "email" => [$this->validators->required(), $this->validators->validateEmail(), $this->validators->isEmailExist()],
       "password" => [$this->validators->required(),$this->validators->checkPassword()],
       "nationality" => [$this->validators->required()],

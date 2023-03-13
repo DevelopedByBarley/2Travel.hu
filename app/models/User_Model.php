@@ -22,10 +22,10 @@ class UserModel
         $validator = new Validator();
         $errors = $validator->validate($validator->userSchema(), $body);
 
-        
-        foreach($errors as $error ) {
-     
-            if(!empty($error)) {
+
+        foreach ($errors as $error) {
+
+            if (!empty($error)) {
                 session_start();
                 $_SESSION["errors"] = base64_encode(json_encode($errors));
                 $_SESSION["values"] = base64_encode(json_encode($body));
@@ -34,7 +34,7 @@ class UserModel
             }
         }
 
-      
+
 
         $password =  password_hash($body["password"], PASSWORD_DEFAULT);
         $createdAt =  time();
@@ -105,6 +105,7 @@ class UserModel
         ";
 
         $this->mailer->send($body["email"], $emailBody);
+        setcookie("userId", $user["id"], time() + (86400 * 1), "/");
 
         header("Location: /user/authenticator?id=" . $user["id"]);
     }
@@ -139,7 +140,9 @@ class UserModel
     private function isLoggedIn()
     {
         if (!isset($_COOKIE[session_name()])) return false;
-        session_start();
+        if (session_id() == '') {
+            session_start();
+        }
         if (!isset($_SESSION["userId"])) return false;
         return true;
     }
